@@ -1,0 +1,20 @@
+{
+  "name": "pi-claude-usage",
+  "version": "1.0.0",
+  "description": "/usage for Pi: Claude Pro/Max plan limits (5-hour session, weekly) with colored bars",
+  "keywords": ["pi-package", "pi", "claude", "anthropic", "usage"],
+  "license": "MIT",
+  "author": "fireseason",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fireseasonnow/pi-claude-usage.git"
+  },
+  "files": ["extensions", "skills", "README.md", "LICENSE"],
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": ["./extensions"],
+    "skills": ["./skills"]
+  }
+}
