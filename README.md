@@ -6,20 +6,11 @@
 
 Claude Code's `/usage` for the [Pi](https://pi.dev) coding agent: see how much of your Claude Pro/Max plan you've used, and when each limit resets.
 
-![pi-claude-usage: output of /usage in Pi, showing the 5-hour session at 36% and the weekly limit at 7%](social-preview.png)
-
-```
-Claude plan usage
-  5-hour session         ███████░░░░░░░░░░░░░  36% (resets in 3h 15m)
-  Weekly (all models)    █░░░░░░░░░░░░░░░░░░░   7% (resets in 3d 5h)
-  Weekly breakdown: Claude Code 72%, Chats 28%
-```
-
-In Pi, the bars and percentages are colored green, then orange at 50%, then red at 80%.
+![pi-claude-usage: output of /claude-usage in Pi, showing the 5-hour session at 36% and the weekly limit at 7%](social-preview.png)
 
 The package contains:
 
-- **`/usage` command**: prints your limits instantly without calling the model, so it costs no tokens. `/usage --json` shows the raw response.
+- **`/claude-usage` command**: prints your limits instantly without calling the model, so it costs no tokens. `/claude-usage --json` shows the raw response.
 - **`claude-usage` skill**: lets Pi answer questions like "how much Claude usage do I have left?"
 
 ## Requirements
@@ -33,13 +24,21 @@ The package contains:
 pi install git:github.com/fireseasonnow/pi-claude-usage
 ```
 
-Then run `/reload` in any open Pi session, or start a new one, and type `/usage`.
+Then run `/reload` in any open Pi session, or start a new one, and type `/claude-usage`.
+
+The command isn't called `/usage` because many Pi packages already use that name, and when two packages register the same command, Pi renames both to `/usage:1` and `/usage:2`.
 
 To try it without installing:
 
 ```sh
 pi -e git:github.com/fireseasonnow/pi-claude-usage
 ```
+
+## Every state
+
+Bars and percentages turn from green to orange at 50%, then red at 80%. Every panel is real output of the script: the data states are rendered with `--input` from a saved API response edited to that state, and the errors come from simulated failures.
+
+![Every state of /claude-usage: green under 50%, orange from 50%, red from 80%, full and empty bars, per-model weekly limits, weekly breakdown, extra usage with and without a limit, no limits reported, cached data after a failed request, and each error message](states.png)
 
 ## How it works
 
@@ -50,14 +49,15 @@ The endpoint is rate limited, so responses are cached for 60 seconds. If a reque
 The script also works on its own:
 
 ```sh
-bash skills/claude-usage/scripts/usage.sh            # plain text
-bash skills/claude-usage/scripts/usage.sh --color    # with colors
-bash skills/claude-usage/scripts/usage.sh --json     # raw response
+bash skills/claude-usage/scripts/usage.sh                     # plain text
+bash skills/claude-usage/scripts/usage.sh --color             # with colors
+bash skills/claude-usage/scripts/usage.sh --json              # raw response
+bash skills/claude-usage/scripts/usage.sh --input saved.json  # render a saved --json response
 ```
 
 ## Caveat
 
-The usage endpoint is undocumented and may change without notice. If `/usage` breaks, check `/usage --json` and open an issue.
+The usage endpoint is undocumented and may change without notice. If `/claude-usage` breaks, check `/claude-usage --json` and open an issue.
 
 ## License
 
