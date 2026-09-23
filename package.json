@@ -1,7 +1,7 @@
 {
   "name": "pi-claude-usage",
   "version": "1.0.0",
-  "description": "/usage for Pi: Claude Pro/Max plan limits (5-hour session, weekly) with colored bars",
+  "description": "/claude-usage for Pi: Claude Pro/Max plan limits (5-hour session, weekly) with colored bars",
   "keywords": ["pi-package", "pi", "claude", "anthropic", "usage"],
   "license": "MIT",
   "author": "fireseason",

@@ -1,5 +1,7 @@
 /**
- * /usage — show Claude subscription usage limits (5-hour session, weekly).
+ * /claude-usage — show Claude subscription usage limits (5-hour session, weekly).
+ * Named claude-usage rather than usage: many Pi packages register /usage, and
+ * duplicate command names make Pi rename both (/usage:1, /usage:2).
  * Runs the bundled claude-usage skill script directly, so no model tokens are spent.
  */
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -12,7 +14,7 @@ const SCRIPT = path.resolve(
 );
 
 export default function (pi: ExtensionAPI) {
-	pi.registerCommand("usage", {
+	pi.registerCommand("claude-usage", {
 		description: "Show Claude plan usage limits (5-hour session, weekly)",
 		getArgumentCompletions: (prefix) =>
 			"--json".startsWith(prefix) ? [{ value: "--json", label: "--json" }] : null,
@@ -25,12 +27,16 @@ export default function (pi: ExtensionAPI) {
 				killed: false,
 			}));
 			if (res.code !== 0) {
-				ctx.ui.notify(res.stderr.trim() || `usage.sh exited with code ${res.code}`, "error");
+				// Pi prefixes error notices with "Error: " itself
+				const message = res.stderr.trim().replace(/^error:\s*/, "");
+				ctx.ui.notify(message || `usage.sh exited with code ${res.code}`, "error");
 				return;
 			}
-			// stderr carries non-fatal notes (e.g. "showing cached data")
+			// stderr carries non-fatal notes (e.g. "showing data from 7m ago"); color it
+			// explicitly, since it follows the output's last color reset
 			const note = res.stderr.trim();
-			ctx.ui.notify(res.stdout.trimEnd() + (note ? `\n${note}` : ""), "info");
+			const dimNote = note ? `\n\x1b[38;5;244m  ${note}\x1b[39m` : "";
+			ctx.ui.notify(res.stdout.trimEnd() + dimNote, "info");
 		},
 	});
 }

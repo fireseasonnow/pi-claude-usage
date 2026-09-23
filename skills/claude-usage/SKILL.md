@@ -12,7 +12,7 @@ bash scripts/usage.sh          # formatted summary
 bash scripts/usage.sh --json   # raw API response
 ```
 
-(`--color` adds ANSI colors for the `/usage` command; don't use it here.)
+(`--color` adds ANSI colors for the `/claude-usage` command; don't use it here. `--input FILE` renders a saved `--json` response without calling the API.)
 
 The script gets a bearer token with `pi auth print-bearer-token --provider anthropic` and queries `https://api.anthropic.com/api/oauth/usage`, the undocumented endpoint behind Claude Code's `/usage`. It needs `curl` and `jq`.
 
