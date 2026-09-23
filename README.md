@@ -6,11 +6,13 @@
 
 Claude Code's `/usage` for the [Pi](https://pi.dev) coding agent: see how much of your Claude Pro/Max plan you've used, and when each limit resets.
 
+![pi-claude-usage: output of /usage in Pi, showing the 5-hour session at 36% and the weekly limit at 7%](social-preview.png)
+
 ```
 Claude plan usage
-  5-hour session         ████░░░░░░░░░░░░░░░░  24% (resets in 3h 35m)
-  Weekly (all models)    █░░░░░░░░░░░░░░░░░░░   6% (resets in 3d 6h)
-  Weekly breakdown: Claude Code 69%, Chats 31%
+  5-hour session         ███████░░░░░░░░░░░░░  36% (resets in 3h 15m)
+  Weekly (all models)    █░░░░░░░░░░░░░░░░░░░   7% (resets in 3d 5h)
+  Weekly breakdown: Claude Code 72%, Chats 28%
 ```
 
 In Pi, the bars and percentages are colored green, then orange at 50%, then red at 80%.
